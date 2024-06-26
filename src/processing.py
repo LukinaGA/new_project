@@ -1,5 +1,12 @@
 def filter_by_state(transaction_info: list[dict], state: str = "EXECUTED") -> list[dict]:
-    """Возвращает список транзакций, отфильтрованных по статусу"""
+    """Фильтрует транзакции по статусу"""
 
     return [transaction for transaction in transaction_info if transaction["state"] == state]
 
+
+def sort_by_date(transaction_info: list[dict], is_ascending: bool = True) -> list[dict]:
+    """Сортирует список транзакций по дате"""
+
+    return sorted(
+        transaction_info, key=lambda transaction: transaction["date"][:10].replace("-", ""), reverse=is_ascending
+    )
