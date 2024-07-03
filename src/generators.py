@@ -1,17 +1,23 @@
 def filter_by_currency(transactions_list: list[dict], currency: str):
     """Возвращать итератор с операциями по заданной валюте"""
-    filtered_transactions = filter(
-        lambda transaction: transaction["operationAmount"]["currency"]["code"] == currency, transactions_list
-    )
+    if transactions_list:
+        filtered_transactions = filter(
+            lambda transaction: transaction["operationAmount"]["currency"]["code"] == currency, transactions_list
+        )
 
-    return filtered_transactions
+        return filtered_transactions
+
+    return []
 
 
 def transaction_descriptions(transactions: list[dict]):
     """Возвращает описание операций по очереди"""
-    for transaction in transactions:
+    if transactions:
+        for transaction in transactions:
 
-        yield transaction["description"]
+            yield transaction["description"]
+
+    return []
 
 
 def card_number_generator(start: int = 1, stop: int = 9999999999999999):
