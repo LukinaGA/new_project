@@ -7,7 +7,8 @@ def filter_by_currency(transactions_list: list[dict], currency: str):
 
         return filtered_transactions
 
-    return []
+    else:
+        return []
 
 
 def transaction_descriptions(transactions: list[dict]):
@@ -17,7 +18,8 @@ def transaction_descriptions(transactions: list[dict]):
 
             yield transaction["description"]
 
-    return []
+    else:
+        return []
 
 
 def card_number_generator(start: int = 1, stop: int = 9999999999999999):
