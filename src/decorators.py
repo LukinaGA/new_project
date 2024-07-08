@@ -12,9 +12,9 @@ def log(filename):
             except Exception as error:
                 if filename:
                     with open(filename, "w") as file:
-                        file.write(f"{func.__name__} error: {error}. Inputs {args}, {kwargs})")
+                        file.write(f"{func.__name__} error: {error}. Inputs {args}, {kwargs}")
                 else:
-                    print(f"{func.__name__} error: {error}. Inputs {args}, {kwargs})")
+                    print(f"{func.__name__} error: {error}. Inputs {args}, {kwargs}")
             else:
                 if filename:
                     with open(filename, "w") as file:
