@@ -6,11 +6,7 @@ def get_transactions_info(path_json_file):
     try:
         with open(path_json_file, encoding="utf-8") as file:
             transactions = json.load(file)
-    except TypeError:
-        return []
-    except FileNotFoundError:
-        return []
-    except ValueError:
+    except (TypeError, FileNotFoundError, ValueError):
         return []
     else:
         return transactions
