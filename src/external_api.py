@@ -8,7 +8,7 @@ def get_transaction_amount_rub(transaction):
     """Возвращает сумму транзакции в рублях"""
     if transaction["operationAmount"]["currency"]["code"] == "RUB":
 
-        return transaction["operationAmount"]["amount"]
+        return float(transaction["operationAmount"]["amount"])
 
     load_dotenv()
     api_key = os.getenv("API_KEY")
@@ -26,4 +26,4 @@ def get_transaction_amount_rub(transaction):
     response = requests.get(url, headers=headers, params=payload)
     result = response.json()
 
-    return result["result"]
+    return float(result["result"])
