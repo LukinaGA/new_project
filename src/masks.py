@@ -12,9 +12,9 @@ logger = logging.getLogger("masks")
 
 def get_mask_card_number(card_number: str) -> str:
     """Возвращает маску номера карты в формате XXXX XX** **** XXXX"""
-    logger.info("Проверка формата номера карты")
+    logger.info(f"Проверка формата номера карты: {card_number}")
     if len(card_number) == 16 and card_number.isdigit():
-        logger.info("Вывод замаскированного номера карты")
+        logger.info("Успешная маскировка номера карты")
         return f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
 
     logger.warning("Некорректный формат номера карты")
@@ -23,9 +23,9 @@ def get_mask_card_number(card_number: str) -> str:
 
 def get_mask_account(account_number: str) -> str:
     """Возвращает маску номера счета в формате **XXXX"""
-    logger.info("Проверка формата номера счёта")
+    logger.info(f"Проверка формата номера счёта: {account_number}")
     if len(account_number) == 20 and account_number.isdigit():
-        logger.info("Вывод замаскированного номера счёта")
+        logger.info("Успешная маскировка номера счёта")
         return f"**{account_number[-4:]}"
 
     logger.warning("Некорректный формат номера счёта")
