@@ -2,6 +2,8 @@ import json
 import logging
 import os
 
+import pandas as pd
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(filename)s - %(levelname)s: %(message)s",
@@ -24,3 +26,25 @@ def get_transactions_info(path_json_file):
     else:
         logger.info("Успешное открытие файла")
         return transactions
+
+
+def read_csv_file(file_path):
+    """Считывает файлы CSV-формата"""
+    try:
+        csv_file_data = pd.read_csv(file_path, delimiter=";")
+
+    except Exception:
+        return "Не удалось считать файл"
+
+    return csv_file_data
+
+
+def read_excel_file(file_path):
+    """Считывает файлы XLSX-фомата"""
+    try:
+        xlsx_file_data = pd.read_excel(file_path)
+
+    except Exception:
+        return "Не удалось считать файл"
+
+    return xlsx_file_data
