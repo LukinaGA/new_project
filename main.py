@@ -1,5 +1,5 @@
 from src.utils import get_transactions_info, read_excel_file, read_csv_file
-from src.processing import filter_by_state
+from src.processing import filter_by_state, sort_by_date
 import os
 
 ROOT_PATH = os.path.dirname(__file__)
@@ -36,14 +36,13 @@ elif select_file_format == 2:
 else:
     transactions_info = read_excel_file(os.path.join(ROOT_PATH, "data", "transactions_excel.xlsx"))
 
-
 # выбор статуса транзакций для фильтрации
 while True:
     print(
         "Введите статус, по которому необходимо выполнить фильтрацию."
         "\nДоступные для фильтрации статусы: EXECUTED, CANCELED, PENDING")
 
-    select_transaction_status = input().upper()
+    select_transaction_status = input().upper().strip()
 
     if select_transaction_status not in ["EXECUTED", "CANCELED", "PENDING"]:
         print(f'Статус операции "{select_transaction_status}" недоступен.')
@@ -53,3 +52,27 @@ while True:
 
 # фильтрация транзакций по выбранному пользователем статусу
 filtered_transactions = filter_by_state(transactions_info, state=select_transaction_status)
+
+# действия программы при наличии транзакций после фильтрации
+if len(filtered_transactions):
+
+    while True:
+        sort_date = input("Отсортировать операции по дате? да/нет ").lower().strip()
+
+        if sort_date not in ["да", "нет"]:
+            print("Некорректный ввод! Пожалуйста, введите да или нет")
+        else:
+            break
+    # выбор направления сортировки
+    if sort_date == "да":
+        while True:
+            increasing_decreasing = input(
+                "Отсортировать по возрастанию (в) или по убыванию (у)?\n Введите в или у ").lower().strip()
+
+            if increasing_decreasing not in ["в", "у"]:
+                print("Некорректрый ввод! Пожалуйста, введите в или у")
+            else:
+                break
+
+        inc_dec = {"в": False, "у": True}
+        sorted_transaction_by_date = sort_by_date(filtered_transactions, is_decreasing=inc_dec[increasing_decreasing])
