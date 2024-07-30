@@ -1,4 +1,5 @@
-from collections import defaultdict, Counter
+import re
+from collections import Counter, defaultdict
 
 
 def search_dy_description(transactions_list: list[dict], search_word: str) -> list:
@@ -6,7 +7,7 @@ def search_dy_description(transactions_list: list[dict], search_word: str) -> li
     found_transactions = []
 
     for transcription in transactions_list:
-        if search_word.lower() in transcription.get("description").lower():
+        if re.search(search_word, transcription["description"], flags=re.IGNORECASE):
             found_transactions.append(transcription)
 
     return found_transactions
