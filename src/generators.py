@@ -1,9 +1,12 @@
 def filter_by_currency(transactions_list: list[dict], currency: str):
-    """Возвращать итератор с операциями по заданной валюте"""
+    """Возвращать список с операциями по заданной валюте"""
     if transactions_list:
-        filtered_transactions = filter(
-            lambda transaction: transaction["operationAmount"]["currency"]["code"] == currency, transactions_list
-        )
+        try:
+            filtered_transactions = [transaction for transaction in transactions_list if
+                                     transaction["operationAmount"]["currency"]["code"] == currency]
+        except KeyError:
+            filtered_transactions = [transaction for transaction in transactions_list if
+                                     transaction.get("currency_code") == currency]
 
         return filtered_transactions
 
@@ -15,7 +18,6 @@ def transaction_descriptions(transactions: list[dict]):
     """Возвращает описание операций по очереди"""
     if transactions:
         for transaction in transactions:
-
             yield transaction["description"]
 
     else:
